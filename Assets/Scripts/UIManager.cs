@@ -5,10 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    public Animator startButton;
+    
     public void StartGame()
     {
         SceneManager.LoadScene("2");
+        startButton.SetBool("isHidden", true);
     }
     
     void Start()
@@ -16,7 +19,7 @@ public class UIManager : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
