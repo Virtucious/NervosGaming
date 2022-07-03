@@ -6,6 +6,11 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     // Start is called before the first frame update
+    public void StartGame()
+    {
+        SceneManager.LoadScene("2");
+    }
+    
     void Start()
     {
         
