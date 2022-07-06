@@ -6,6 +6,8 @@ public class Movement : MonoBehaviour
     public LayerMask whatCanBeClickedOn;
     private NavMeshAgent myAgent;
     public Animator playerAnimator;
+    const float diff = 1f;
+    
 
     private void Start()
     {
@@ -17,19 +19,26 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            Vector3 currentPos = myAgent.transform.position;
             myAgent.speed = 5f;
             Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
+            float dist = 0f;
 
             if (Physics.Raycast(myRay, out hit, 100, whatCanBeClickedOn))
             {
-                myAgent.SetDestination(hit.point);
+                Vector3 newPos = hit.point;
+                myAgent.SetDestination(newPos);
+                
             }
-
-            if (myAgent.transform.position == hit.point)
+            Vector3 newPoss = hit.point;
+            dist = Vector3.Distance(newPoss, currentPos);
+            if (Mathf.Abs((Vector3.Distance(myAgent.transform.position, currentPos)) - dist) <= 1f)
             {
                 myAgent.speed = 0f;
             }
+
+            
 
             if (myAgent.speed > 0f)
             {
