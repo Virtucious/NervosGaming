@@ -20,6 +20,11 @@ public class UIManager : MonoBehaviour
         menuButton.SetBool("onClick", true);
     }
     
+    public void offActive()
+    {
+        menuButton.SetBool("onClick", false);
+    }
+
     void Start()
     {
         
