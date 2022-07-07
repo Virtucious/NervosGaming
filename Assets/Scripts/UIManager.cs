@@ -8,7 +8,8 @@ public class UIManager : MonoBehaviour
 
     public Animator startButton;
     public Animator menuButton;
-    
+    public Animator buildButton;
+
     public void StartGame()
     {
         SceneManager.LoadScene("2");
@@ -23,6 +24,11 @@ public class UIManager : MonoBehaviour
     public void offActive()
     {
         menuButton.SetBool("onClick", false);
+    }
+
+    public void buildClick()
+    {
+        buildButton.SetBool("BuildClick", true);
     }
 
     void Start()
