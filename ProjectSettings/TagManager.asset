@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Selectable
   - not ground
+  - soil
+  - castle
   layers:
   - Default
   - TransparentFX

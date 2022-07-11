@@ -25,7 +25,7 @@ public class Movement : MonoBehaviour
             RaycastHit hit;
             float dist = 0f;
 
-            if (Physics.Raycast(myRay, out hit, 100, whatCanBeClickedOn))
+            if (Physics.Raycast(myRay, out hit, 100f, whatCanBeClickedOn))
             {
                 Vector3 newPos = hit.point;
                 myAgent.SetDestination(newPos);
