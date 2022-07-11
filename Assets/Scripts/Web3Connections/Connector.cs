@@ -118,8 +118,7 @@ public class Connector : MonoBehaviour
         string increaseAllowanceArgs = JsonConvert.SerializeObject(obj);
         try
         {
-            string transactionHash = await Web3GL.SendC
-ontract(increaseAllowanceMethod,
+            string transactionHash = await Web3GL.SendContract(increaseAllowanceMethod,
             ChainConfig.abi,
             ChainConfig.contractAddress,
             increaseAllowanceArgs,
