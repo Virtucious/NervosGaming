@@ -8,27 +8,15 @@ using System.Numerics;
 
 public class Connector : MonoBehaviour
 {
+    public static Connector Instance;
+    
     public async void Start()
     {
-        string account = "0xABA02F8052aC1DebAebDe8B73E2338cFC85a182F";
-        await isInitialized(account);
+        //string account = "0xABA02F8052aC1DebAebDe8B73E2338cFC85a182F";
+        //await isInitialized(account);
+        Instance = this;
     }
 
-    public async Task<string> InitializeContract(string account)
-    {
-        string initializeMethod = "initialize";
-        string[] obj = {};
-        string getAllowanceArgs = JsonConvert.SerializeObject(obj);
-
-        string allowance = await EVM.Call(ChainConfig.chain,
-            ChainConfig.network,
-            ChainConfig.contractAddress,
-            ChainConfig.abi,
-            initializeMethod,
-            getAllowanceArgs,
-            ChainConfig.rpc);
-        return allowance;
-    }
 
     public async Task<bool> isInitialized(string account)
     {
