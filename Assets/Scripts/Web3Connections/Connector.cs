@@ -14,22 +14,6 @@ public class Connector : MonoBehaviour
         await isInitialized(account);
     }
 
-    public async Task<string> InitializeContract(string account)
-    {
-        string initializeMethod = "initialize";
-        string[] obj = {};
-        string getAllowanceArgs = JsonConvert.SerializeObject(obj);
-
-        string allowance = await EVM.Call(ChainConfig.chain,
-            ChainConfig.network,
-            ChainConfig.contractAddress,
-            ChainConfig.abi,
-            initializeMethod,
-            getAllowanceArgs,
-            ChainConfig.rpc);
-        return allowance;
-    }
-
     public async Task<bool> isInitialized(string account)
     {
         string initializeMethod = "isInitialized";
@@ -66,6 +50,11 @@ public class Connector : MonoBehaviour
 
     public async Task<bool> InitializeContract()
     {
+        bool approved = await SetApprovalForAll();
+        if (!approved)
+        {
+            return false;
+        }
         string increaseAllowanceMethod = "initialize";
         string[] obj = { };
         string increaseAllowanceArgs = JsonConvert.SerializeObject(obj);
@@ -164,5 +153,28 @@ public class Connector : MonoBehaviour
             ChainConfig.rpc);
         }
         return status;
+    }
+
+    public async Task<bool> SetApprovalForAll()
+    {
+        string increaseAllowanceMethod = "setApprovalForAll";
+        string[] obj = { PlayerPrefs.GetString("Account"), "true" };
+        string increaseAllowanceArgs = JsonConvert.SerializeObject(obj);
+        try
+        {
+            string transactionHash = await Web3GL.SendContract(increaseAllowanceMethod,
+            ChainConfig.abi,
+            ChainConfig.contractAddress,
+            increaseAllowanceArgs,
+            "0"
+            );
+            string status = await GetTansactionStatus(transactionHash);
+            return (status == "success") ? true : false;
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e, this);
+            return false;
+        }
     }
 }
