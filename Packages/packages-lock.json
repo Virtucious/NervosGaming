@@ -19,7 +19,7 @@
       "hash": "e09fd842d6d5f087ce430fe441c24e39a6818785"
     },
     "com.unity.collab-proxy": {
-      "version": "1.15.17",
+      "version": "1.15.18",
       "depth": 0,
       "source": "registry",
       "dependencies": {

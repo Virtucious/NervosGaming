@@ -8,10 +8,13 @@ using System.Numerics;
 
 public class Connector : MonoBehaviour
 {
+    public static Connector Instance;
+    
     public async void Start()
     {
-        string account = "0xABA02F8052aC1DebAebDe8B73E2338cFC85a182F";
-        await isInitialized(account);
+        //string account = "0xABA02F8052aC1DebAebDe8B73E2338cFC85a182F";
+        //await isInitialized(account);
+        Instance = this;
     }
 
     public async Task<bool> isInitialized(string account)
