@@ -2,11 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System.Numerics;
 
 public class web3Manager : MonoBehaviour
 {
     string account;
+    
     public GameObject panel;
+    public Button unClaimed;
+    public TextMeshProUGUI uc;
+    public TextMeshProUGUI tokens;
+    public int unclaimedCoins = 0;
+    public BigInteger coins = 0;
+    private float waitTime = 2f;
+    private float timer = 0f;
+
+
+
     async void Start()
     {
 #if UNITY_EDITOR
@@ -15,9 +28,8 @@ public class web3Manager : MonoBehaviour
         account = PlayerPrefs.GetString("Account");
 #endif
 
-
         bool isInitialized = await Connector.Instance.isInitialized(account);
-
+        
         if (isInitialized == true)
         {
             panel.SetActive(false);
@@ -34,8 +46,33 @@ public class web3Manager : MonoBehaviour
     }
 
     
-    void Update()
+    async void Update()
+    {
+        timer = Time.deltaTime;
+         
+        if (timer > waitTime)
+        {
+            unclaimedCoins += 1;
+            uc.text = unclaimedCoins.ToString();
+            timer = 0f;
+        }
+
+        uc.text = await Connector.Instance.getPending(account);
+        if (unclaimedCoins == 100)
+        {
+            coins += await Connector.Instance.balanceOf(5);
+            unclaimedCoins = 0;
+            tokens.text = coins.ToString();
+        }
+        
+
+        
+        
+    }
+
+    public void isClicked()
     {
         
     }
+
 }
