@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class web3Manager : MonoBehaviour
 {
     string account;
+    public GameObject panel;
     async void Start()
     {
 #if UNITY_EDITOR
@@ -16,7 +18,18 @@ public class web3Manager : MonoBehaviour
 
         bool isInitialized = await Connector.Instance.isInitialized(account);
 
-
+        if (isInitialized == true)
+        {
+            panel.SetActive(false);
+        }
+        else
+        {
+           bool isContract = await Connector.Instance.InitializeContract();
+            if (isContract == true)
+            {
+                panel.SetActive(false);
+            }
+        }
         
     }
 
