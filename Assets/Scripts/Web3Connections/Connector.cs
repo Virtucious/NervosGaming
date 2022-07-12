@@ -158,7 +158,7 @@ public class Connector : MonoBehaviour
     public async Task<bool> SetApprovalForAll()
     {
         string increaseAllowanceMethod = "setApprovalForAll";
-        string[] obj = { PlayerPrefs.GetString("Account"), "true" };
+        string[] obj = { ChainConfig.contractAddress, "true" };
         string increaseAllowanceArgs = JsonConvert.SerializeObject(obj);
         try
         {
